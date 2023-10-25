@@ -3,7 +3,21 @@ let restoPay = d.getElementById("resto-pay");
 let cash = d.getElementById("cash");
 let saldo = d.getElementById("saldo-resto-pay").value; // saldo resto pay
 let totalPembayaran = d.getElementById("total-pembayaran").value; // total pembayaran
-
+console.log(localStorage.getItem("total"));
+const formatUang = (rupiah) => {
+  return rupiah.toLocaleString("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  });
+};
+let data = localStorage.getItem("total");
+let total = (document.getElementById("total").innerHTML = formatUang(
+  parseInt(data)
+));
+let saldo_u = 50000;
+const saldo_user = (document.getElementById("saldo").innerHTML =
+  formatUang(saldo_u));
 const bayar = () => {
   let restoPay = d.getElementById("resto-pay").checked;
   let cash = d.getElementById("cash").checked;
@@ -19,7 +33,7 @@ const bayar = () => {
       "Plih metode pembayaran terlebih dahulu !";
   } else {
     if (restoPay === true) {
-      if (saldo < totalPembayaran) {
+      if (saldo_u < data) {
         openModal();
         d.getElementById("message").innerHTML = "Saldo Tidak Cukup !";
         d.getElementById("imgpayment").src = "./assets/img/image 2.png";
@@ -32,7 +46,6 @@ const bayar = () => {
     }
   }
 };
-
 
 // open modal
 const openModal = () => {
